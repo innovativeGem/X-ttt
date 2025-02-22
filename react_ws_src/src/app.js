@@ -5,7 +5,7 @@ import { Router, Route, Redirect, IndexRoute, browserHistory  } from 'react-rout
 import { createHistory, useBasename } from 'history'
 import ga from 'react-ga'
 
-// import './sass/main.scss'
+import './sass/main.scss'
 
 import Main from './views/Main'
 
