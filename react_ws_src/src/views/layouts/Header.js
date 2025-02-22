@@ -1,36 +1,39 @@
-import React, {Component} from 'react'
+import React from 'react'
 import { Link } from 'react-router'
-// import jquery from 'jquery'
 import PropTypes from 'prop-types'
 
 import MessageBar from '../layouts/MessageBar'
+import { useAppContext } from '../../context/AppContext'
 
-export default class Header extends Component {
+const Header = () => {
 
-	constructor (props) {
-		super(props)
+	const [ appState ] = useAppContext()
+
+	if (!appState || !appState.ws_conf) {
+		return <p>Loading...</p>
 	}
 
-	render () {
+	const { header, main_menu } = appState.ws_conf
+	console.log('Header context:', header) 
 
-		return (
-			<header id='main_header'>
+	return (
+		<header id='main_header'>
 				<div id='brand'>
 					<div className='container'>
 
-						<Link to={app.settings.ws_conf.header.head_l_logo.u} className='logo-tl'>
-							<img src={app.settings.ws_conf.header.head_l_logo.i} />
+						<Link to={header.head_l_logo.u} className='logo-tl'>
+							<img src={header.head_l_logo.i} />
 						</Link>
 
 
-						<Link to={app.settings.ws_conf.header.site_title.u} className='main-site-name'>
-							{app.settings.ws_conf.header.site_title.txt}
+						<Link to={header.site_title.u} className='main-site-name'>
+							{header.site_title.txt}
 						</Link>
 
 						<nav>
 							<ul>
 								{
-									app.settings.ws_conf.main_menu.pages.p.map(function (p, i) {
+									main_menu.pages.p.map(function (p, i) {
 										return (
 											<li key={i}>
 												<Link 	to={p.u} >
@@ -50,26 +53,7 @@ export default class Header extends Component {
 				<MessageBar />
 
 			</header>
-		)
-	}
-								// <li className='showMobile'>
-								// 	<Link ref='lnkMenu' className='menu no-interfere' to='' onClick={this.showHomeClicked.bind(this)}>menu</Link>
-								// </li>
-/*
-	showPageClicked (e) {
-		e.preventDefault()
-		this.context.router.push(e.target.href)
-		jquery(e.target).toggleClass('active')
-		return false
-	}
-
-	showHomeClicked (e) {
-		e.preventDefault()
-		this.context.router.push('/')
-		jquery(e.target).toggleClass('active')
-		return false
-	}
-*/
+	  )
 }
 
 // property validation
@@ -77,6 +61,4 @@ Header.propTypes = {
 	children: PropTypes.any
 }
 
-Header.contextTypes = {
-	router: PropTypes.object.isRequired
-}
+export default Header

@@ -1,111 +1,70 @@
-import React, { Component} from 'react'
-import { Link } from 'react-router'
+import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 
 import SetName from './SetName'
 import SetGameType from './SetGameType'
-
 import GameMain from './GameMain'
-import PropTypes from 'prop-types'
+import { useAppContext } from '../../context/AppContext'
 
-export default class Ttt extends Component {
+const Ttt = () => {
+	const [ appState, updateAppState ] = useAppContext()
+	const [gameType, setGameType] = useState(null)
+	const [gameStep, setGameStep] = useState('set_name')
 
-	constructor (props) {
-		super(props)
-
-		this.state = {
-			game_step: this.set_game_step()
+	// Function to determine the current step based on context and local state
+	const determineGameStep = () => {
+		if (!appState.curr_user || !appState.curr_user.name) {
+			return 'set_name'
+		} else if (!gameType) {
+			return 'set_game_type'
+		} else {
+			return 'start_game'
 		}
 	}
 
-//	------------------------	------------------------	------------------------
-
-	render () {
-
-		const {game_step} = this.state
-
-		console.log(game_step)
-
-		return (
-			<section id='TTT_game'>
-				<div id='page-container'>
-					{game_step == 'set_name' && <SetName 
-														onSetName={this.saveUserName.bind(this)} 
-												/>}
-
-					{game_step != 'set_name' && 
-						<div>
-							<h2>Welcome, {app.settings.curr_user.name}</h2>
-						</div>
-					}
-
-					{game_step == 'set_game_type' && <SetGameType 
-														onSetType={this.saveGameType.bind(this)} 
-													/>}
-					{game_step == 'start_game' && <GameMain 
-														game_type={this.state.game_type}
-														onEndGame={this.gameEnd.bind(this)} 
-													/>}
-
-				</div>
-			</section>
-		)
+	// Save the user's name into the context, then update the game step
+	const saveUserName = (n) => {
+		updateAppState({ curr_user: { name: n } })
+		setGameStep(determineGameStep())
 	}
 
-//	------------------------	------------------------	------------------------
-
-	saveUserName (n) {
-		app.settings.curr_user = {}
-		app.settings.curr_user.name = n
-
-		this.upd_game_step()
+	// Save the selected game type and update the game step
+	const saveGameType = (t) => {
+		setGameType(t)
+		setGameStep(determineGameStep())
 	}
 
-//	------------------------	------------------------	------------------------
-
-	saveGameType (t) {
-		this.state.game_type = t
-
-		this.upd_game_step()
+	// Called when the game ends; resets gameType and updates the step
+	const gameEnd = () => {
+		setGameType(null)
+		setGameStep(determineGameStep())
 	}
 
-//	------------------------	------------------------	------------------------
+	// Update the game step when the context's curr_user or gameType changes.
+	useEffect(() => {
+		setGameStep(determineGameStep())
+	}, [appState.curr_user, gameType])
 
-	gameEnd (t) {
-		this.state.game_type = null
-
-		this.upd_game_step()
-	}
-
-//	------------------------	------------------------	------------------------
-//	------------------------	------------------------	------------------------
-
-	upd_game_step () {
-
-		this.setState({
-			game_step: this.set_game_step()
-		})
-	}
-
-//	------------------------	------------------------	------------------------
-
-	set_game_step () {
-
-		if (!app.settings.curr_user || !app.settings.curr_user.name)
-			return 'set_name'
-		else if (!this.state.game_type)
-			return 'set_game_type'
-		else
-			return 'start_game'
-	}
-
+	return (
+		<section id="TTT_game">
+			<div id="page-container">
+				{gameStep === 'set_name' && <SetName onSetName={saveUserName} />}
+				{gameStep !== 'set_name' && (
+					<div>
+						<h2>Welcome, {appState.curr_user && appState.curr_user.name}</h2>
+					</div>
+				)}
+				{gameStep === 'set_game_type' && <SetGameType onSetType={saveGameType} />}
+				{gameStep === 'start_game' && (
+					<GameMain game_type={gameType} onEndGame={gameEnd} />
+				)}
+			</div>
+		</section>
+	)
 }
-
-//	------------------------	------------------------	------------------------
 
 Ttt.propTypes = {
-	params: PropTypes.any
+  params: PropTypes.any,
 }
 
-Ttt.contextTypes = {
-  router: PropTypes.object.isRequired
-}
+export default Ttt

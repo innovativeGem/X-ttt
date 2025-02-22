@@ -13,7 +13,7 @@ export default class MessageBar extends Component {
 
 		// {h:'hd', m:'msg'}, {h:'hhdd', m:'mmsgg'}
 
-		app.on(app.events.show_message, this.show_message.bind(this))
+		// app.on(app.events.show_message, this.show_message.bind(this))
 	}
 
 
@@ -56,7 +56,7 @@ export default class MessageBar extends Component {
 	}
 
 	test_message () {
-		app.trigger(app.events.show_message, 'header', 'this is message')
+		// app.trigger(app.events.show_message, 'header', 'this is message')
 	}
 }
 

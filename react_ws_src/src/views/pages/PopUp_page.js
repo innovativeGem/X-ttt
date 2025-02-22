@@ -9,8 +9,14 @@ export default class PopUp_page extends Component {
 	}
 
 	render () {
+		const [ appState ] = useAppContext()
+
+		if (!appState || !appState.ws_conf) {
+			return <p>Loading...</p>
+		}
+
 		const { pu_page } = this.props.params
-		const page_x = app.settings.ws_conf.pgs[pu_page]
+		const page_x = appState.ws_conf.pgs[pu_page]
 
 		if (!pu_page || !page_x) return null
 
