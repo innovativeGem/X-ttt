@@ -6,6 +6,10 @@ io = require('socket.io')(server);
 
 util = require("util");							// Utility resources (logging, object inspection, etc)
 
+const { createGameManager } = require('./GameManager.js');
+const setGameSocketHandlers = require('./XtttGame.js');
+const gameManager = createGameManager(io);
+
 /**************************************************
 ** GAME VARIABLES
 **************************************************/
@@ -23,6 +27,6 @@ server.listen(port, function () {
 // Routing
 app.use(express.static(__dirname + '/public'));
 
-require('./XtttGame.js');
-
-io.on('connection', set_game_sock_handlers);
+io.on('connection', (socket) => {
+	setGameSocketHandlers(socket, gameManager);
+});
