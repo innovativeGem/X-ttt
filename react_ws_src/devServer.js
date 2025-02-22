@@ -13,6 +13,8 @@ app.use(require('webpack-dev-middleware')(compiler, {
 
 app.use(require('webpack-hot-middleware')(compiler));
 
+app.use(express.static(path.join(__dirname, '../react_ws_src/static')));
+
 // app.use(express.static(paths.client('images')))
 // app.use(express.static('static'))
 
