@@ -229,7 +229,7 @@ export default class SetName extends Component {
 
 		TweenMax.from(this.refs[cell_id], 0.7, {opacity: 0, scaleX:0, scaleY:0, ease: Power4.easeOut})
 
-		this.socket.emit('ply_turn', { cell_id: cell_id });
+		this.socket.emit('ply_turn', { cell_id });
 
 		// this.setState({
 		// 	cell_vals: cell_vals,
