@@ -56,7 +56,7 @@ const Ttt = () => {
 				)}
 				{gameStep === 'set_game_type' && <SetGameType onSetType={saveGameType} />}
 				{gameStep === 'start_game' && (
-					<GameMain game_type={gameType} onEndGame={gameEnd} />
+					<GameMain game_type={gameType} curr_user={appState.curr_user} loc={appState.ws_conf.loc} onEndGame={gameEnd} />
 				)}
 			</div>
 		</section>

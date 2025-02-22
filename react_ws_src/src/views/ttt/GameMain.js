@@ -8,7 +8,7 @@ import rand_arr_elem from '../../helpers/rand_arr_elem'
 import rand_to_fro from '../../helpers/rand_to_fro'
 import { useAppContext } from '../../context/AppContext'
 
-export default class SetName extends Component {
+export default class GameMain extends Component {
 
 	constructor (props) {
 		super(props)
@@ -57,18 +57,13 @@ export default class SetName extends Component {
 //	------------------------	------------------------	------------------------
 
 	sock_start () {
-		const { appState } = useAppContext()
-		
-		if (!appState.ws_conf) return null
-	
-		const { loc } = appState.ws_conf
 
-		this.socket = io(loc.SOCKET__io.u);
+		this.socket = io(this.props.loc.SOCKET__io.u);
 
 		this.socket.on('connect', function(data) { 
 			// console.log('socket connected', data)
 
-			this.socket.emit('new player', { name: appState.curr_user.name });
+			this.socket.emit('new player', { name: this.props.curr_user.name });
 
 		}.bind(this));
 
