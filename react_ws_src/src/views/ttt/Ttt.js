@@ -5,6 +5,7 @@ import SetName from './SetName'
 import SetGameType from './SetGameType'
 
 import GameMain from './GameMain'
+import PropTypes from 'prop-types'
 
 export default class Ttt extends Component {
 
@@ -102,9 +103,9 @@ export default class Ttt extends Component {
 //	------------------------	------------------------	------------------------
 
 Ttt.propTypes = {
-	params: React.PropTypes.any
+	params: PropTypes.any
 }
 
 Ttt.contextTypes = {
-  router: React.PropTypes.object.isRequired
+  router: PropTypes.object.isRequired
 }

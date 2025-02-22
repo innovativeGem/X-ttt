@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import getBodyHeight from '../../helpers/getBodyHeight'
 import { Motion, spring } from 'react-motion'
+import PropTypes from 'prop-types'
 
 export default class PopUp extends Component {
 
@@ -58,10 +59,10 @@ export default class PopUp extends Component {
 }
 
 PopUp.propTypes = {
-  pageTitle: React.PropTypes.string,
-  children: React.PropTypes.any
+  pageTitle: PropTypes.string,
+  children: PropTypes.any
 }
 
 PopUp.contextTypes = {
-  router: React.PropTypes.object.isRequired
+  router: PropTypes.object.isRequired
 }

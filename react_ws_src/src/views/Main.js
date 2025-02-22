@@ -2,6 +2,7 @@ import React, { Component} from 'react'
 import Header from './layouts/Header'
 import MainContent from './layouts/MainContent'
 import Footer from './layouts/Footer'
+import PropTypes from 'prop-types'
 
 export default class Main extends Component {
 
@@ -22,9 +23,9 @@ export default class Main extends Component {
 
 // property validation
 Main.propTypes = {
-	mainContent: React.PropTypes.object,
-	bottom: React.PropTypes.object,
-	popup: React.PropTypes.object
+	mainContent: PropTypes.object,
+	bottom: PropTypes.object,
+	popup: PropTypes.object
 }
 
 // full height

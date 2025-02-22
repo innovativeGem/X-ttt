@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import { Link } from 'react-router'
 // import jquery from 'jquery'
+import PropTypes from 'prop-types'
 
 import MessageBar from '../layouts/MessageBar'
 
@@ -73,9 +74,9 @@ export default class Header extends Component {
 
 // property validation
 Header.propTypes = {
-	children: React.PropTypes.any
+	children: PropTypes.any
 }
 
 Header.contextTypes = {
-	router: React.PropTypes.object.isRequired
+	router: PropTypes.object.isRequired
 }

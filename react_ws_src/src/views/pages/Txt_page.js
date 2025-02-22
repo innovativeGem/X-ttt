@@ -2,6 +2,7 @@ import React, { Component} from 'react'
 import { Link } from 'react-router'
 
 import X2JS from 'x2js'
+import PropTypes from 'prop-types'
 
 export default class Txt_page extends Component {
 
@@ -51,9 +52,9 @@ export default class Txt_page extends Component {
 }
 
 Txt_page.propTypes = {
-	params: React.PropTypes.any
+	params: PropTypes.any
 }
 
 Txt_page.contextTypes = {
-  router: React.PropTypes.object.isRequired
+  router: PropTypes.object.isRequired
 }

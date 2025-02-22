@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import jquery from 'jquery'
+import PropTypes from 'prop-types'
 
 export default class MessageBar extends Component {
 

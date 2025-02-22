@@ -5,6 +5,7 @@ import PopUp from '../layouts/PopUp'
 import validator from 'validator'
 import objectAssign from 'object-assign'
 import serialize_params from '../../helpers/serialize_params'
+import PropTypes from 'prop-types'
 
 export default class Contact extends Component {
 
@@ -228,8 +229,8 @@ export class FieldHolder extends Component {
 }
 
 FieldHolder.propTypes = {
-	children: React.PropTypes.any,
-	isValid: React.PropTypes.bool,
-	goodClasses: React.PropTypes.string.isRequired,
-	badClass: React.PropTypes.string.isRequired
+	children: PropTypes.any,
+	isValid: PropTypes.bool,
+	goodClasses: PropTypes.string.isRequired,
+	badClass: PropTypes.string.isRequired
 }
